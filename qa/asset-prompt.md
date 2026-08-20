@@ -47,3 +47,11 @@ Use the v3 sheet as the exact edit target. Move both braided loops lower beneath
 ## Character-reference refinement v5
 
 Use the v4 sheet as the exact edit target and three supplied character images only as design references. Refine Batu's youthful sharp face, narrow upturned amber-gold eyes with very slim vertical pupils, matte black chin-length hair, coherent right-swept fringe, low elongated U/teardrop-shaped braided loops, broad domed black hat with thick fur brim, complete rear black-and-deep-crimson plume ribbons, high-neck mantle and circular medallion. Do not copy the references' scenes, red backgrounds, flames, window bars, gestures, grayscale treatment or panel framing. Preserve the exact nine poses, chibi proportions, props, full-body silhouettes, grid positions, color sprite rendering and magenta chroma background.
+
+## Hat construction and scroll topology correction v6
+
+Use the v5 sheet as the exact edit target. Across all nine poses, redraw the pale hat-crown seams as perspective-correct longitudinal meridians that follow the domed volume and converge at the rear/top plume knot; align the crown axis, thick fur-brim ellipse, underside opening and complete black-and-crimson plume attachment. Remove floating horizontal arcs and disconnected seams. In the bottom-center seated pose only, make the broad parchment sheet emerge tangentially from the outermost lower-left wrap of the right-side rolled cylinder, with the outer rolled lip in front and the spiral core contained inside the near circular end. Preserve every other character, pose, prop, costume, expression, color, grid and chroma-background detail.
+
+## Single hat seam correction v7
+
+Use the v6 sheet as the exact edit target and remove every fan-shaped, radial, spoke-like or multi-panel pale line from the hat crowns. Keep each crown almost entirely uninterrupted matte black, with exactly one slender pale seam following a restrained diagonal arc over the dome toward the rear/top plume knot. Never add multiple seams or center convergence. Preserve the corrected scroll topology, complete plume ornaments, character design, nine poses, props, rendering and magenta chroma background.

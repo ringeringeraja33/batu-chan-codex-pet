@@ -198,6 +198,17 @@ def main() -> None:
         for column in range(8)
     ), "hover row must reuse the grounded wave cycle"
 
+    working_frame = atlas_cell(7, 0)
+    look_frames_match_working = all(
+        ImageChops.difference(working_frame, atlas_cell(row, column)).getbbox()
+        is None
+        for row in (9, 10)
+        for column in range(8)
+    )
+    assert look_frames_match_working, (
+        "look-direction rows must preserve the map-reading working pose"
+    )
+
     fringe_pixels = chroma_fringe_count(image)
     assert fringe_pixels == 0, f"source chroma fringe pixels: {fringe_pixels}"
 
@@ -229,6 +240,7 @@ def main() -> None:
         "idleOfficialFrameCount": 6,
         "animatedCellsTouchingBounds": visible_border_pixels,
         "hoverState": "grounded-wave",
+        "lookFramesMatchWorkingPose": look_frames_match_working,
         "transparentRgbResiduePixels": transparent_rgb_residue,
         "sourceChromaFringePixels": fringe_pixels,
         "utf8Readback": "passed",

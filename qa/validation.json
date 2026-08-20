@@ -15,7 +15,7 @@
     192,
     208
   ],
-  "visiblePixels": 1304760,
+  "visiblePixels": 1288838,
   "idleFootBaselines": [
     204,
     204,
@@ -35,22 +35,22 @@
     204
   ],
   "idleBodyCenters": [
-    88.136,
-    88.136,
-    88.136,
-    88.136,
-    88.136,
-    88.136
+    88.817,
+    88.817,
+    88.817,
+    88.817,
+    88.817,
+    88.817
   ],
   "waveBodyCenters": [
-    85.016,
-    85.016,
-    85.016,
-    85.016,
-    85.016,
-    85.016,
-    85.016,
-    85.016
+    84.599,
+    84.599,
+    84.599,
+    84.599,
+    84.599,
+    84.599,
+    84.599,
+    84.599
   ],
   "waveFacePixelLock": true,
   "idleOpenFrameColumns": [
@@ -66,6 +66,7 @@
   "idleOfficialFrameCount": 6,
   "animatedCellsTouchingBounds": 0,
   "hoverState": "grounded-wave",
+  "lookFramesMatchWorkingPose": true,
   "transparentRgbResiduePixels": 0,
   "sourceChromaFringePixels": 0,
   "utf8Readback": "passed"
