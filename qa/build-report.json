@@ -1,0 +1,35 @@
+{
+  "source": "source\\batu-pose-sheet-western-expedition-chroma.png",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "animationMode": "static-western-expedition",
+  "poseCount": 9,
+  "atlas": "package\\spritesheet.webp",
+  "atlasSize": [
+    1536,
+    2288
+  ],
+  "grid": [
+    8,
+    11
+  ],
+  "cellSize": [
+    192,
+    208
+  ],
+  "activeFrames": [
+    6,
+    8,
+    8,
+    8,
+    8,
+    8,
+    6,
+    6,
+    6,
+    8,
+    8
+  ]
+}

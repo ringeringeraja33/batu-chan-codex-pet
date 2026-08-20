@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "manifestId": "batu",
+  "displayName": "拔都",
+  "spriteVersionNumber": 2,
+  "atlasSize": [
+    1536,
+    2288
+  ],
+  "grid": [
+    8,
+    11
+  ],
+  "cellSize": [
+    192,
+    208
+  ],
+  "visiblePixels": 1351674,
+  "idleFootBaselines": [
+    204,
+    204,
+    204,
+    204,
+    204,
+    204
+  ],
+  "waveFootBaselines": [
+    204,
+    204,
+    204,
+    204,
+    204,
+    204,
+    204,
+    204
+  ],
+  "idleBodyCenters": [
+    90.854,
+    90.854,
+    90.854,
+    90.854,
+    90.854,
+    90.854
+  ],
+  "waveBodyCenters": [
+    86.455,
+    86.455,
+    86.455,
+    86.455,
+    86.455,
+    86.455,
+    86.455,
+    86.455
+  ],
+  "waveFacePixelLock": true,
+  "idleOpenFrameColumns": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "idleBlinkFrameColumns": [],
+  "animationMode": "static-western-expedition",
+  "idleOfficialFrameCount": 6,
+  "animatedCellsTouchingBounds": 0,
+  "hoverState": "grounded-wave",
+  "transparentRgbResiduePixels": 0,
+  "sourceChromaFringePixels": 0,
+  "utf8Readback": "passed"
+}
