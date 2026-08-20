@@ -10,7 +10,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "source" / "batu-pose-sheet-western-expedition-chroma.png"
+SOURCE = ROOT / "source" / "batu-pose-sheet-reference-refined-v5-chroma.png"
 ATLAS_PATH = ROOT / "package" / "spritesheet.webp"
 CONTACT_SHEET_PATH = ROOT / "assets" / "contact-sheet.png"
 LOOK_SHEET_PATH = ROOT / "assets" / "look-directions.png"
