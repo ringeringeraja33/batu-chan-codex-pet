@@ -1,4 +1,4 @@
-# Batu Codex Pet · 拔都桌宠
+# Batu-chan Codex Pet · 拔都酱桌宠
 
 ![Batu animation contact sheet](assets/contact-sheet.png)
 
