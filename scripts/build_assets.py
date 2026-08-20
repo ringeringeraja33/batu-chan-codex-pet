@@ -10,7 +10,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "source" / "batu-pose-sheet-reference-refined-v5-chroma.png"
+SOURCE = ROOT / "source" / "batu-pose-sheet-single-hat-seam-v7-chroma.png"
 ATLAS_PATH = ROOT / "package" / "spritesheet.webp"
 CONTACT_SHEET_PATH = ROOT / "assets" / "contact-sheet.png"
 LOOK_SHEET_PATH = ROOT / "assets" / "look-directions.png"
@@ -80,7 +80,10 @@ def remove_transparent_rgb(image: Image.Image) -> Image.Image:
     rgba = image.convert("RGBA")
     pixels = []
     for red, green, blue, alpha in rgba.get_flattened_data():
-        if alpha <= 40:
+        # Generated chroma edges can leave a few nearly invisible magenta
+        # pixels after scaling/WebP filtering. Drop that sub-22% coverage so
+        # it cannot produce a colored halo in the desktop overlay.
+        if alpha <= 56:
             pixels.append((0, 0, 0, 0))
         else:
             pixels.append((red, green, blue, alpha))
@@ -334,7 +337,10 @@ def make_rows(
     review = [render_pose(poses[8]) for _ in range(6)]
     rows.append(review + [transparent.copy() for _ in range(2)])
 
-    look_frame = idle_frame.copy()
+    # Codex gives pointer/caret look frames priority over the active task state.
+    # Keep those rows on the map-reading pose so thinking/working never snaps
+    # back to the standing idle artwork while gaze tracking is active.
+    look_frame = render_pose(poses[7], max_width=188, max_height=194)
     rows.append([look_frame.copy() for _ in range(8)])
     rows.append([look_frame.copy() for _ in range(8)])
 
