@@ -1,9 +1,10 @@
 {
-  "source": "source\\batu-pose-sheet-downturned-fur-brim-v19-chroma.png",
+  "source": "source\\batu-pose-sheet-inward-braids-fine-plume-v31-chroma.png",
   "sourceSize": [
     1254,
     1254
   ],
+  "poseSourceScale": 0.62,
   "animationMode": "static-western-expedition",
   "poseCount": 9,
   "atlas": "package\\spritesheet.webp",
