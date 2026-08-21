@@ -10,7 +10,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "source" / "batu-pose-sheet-single-hat-seam-v7-chroma.png"
+SOURCE = ROOT / "source" / "batu-pose-sheet-inward-braids-fine-plume-v31-chroma.png"
 ATLAS_PATH = ROOT / "package" / "spritesheet.webp"
 CONTACT_SHEET_PATH = ROOT / "assets" / "contact-sheet.png"
 LOOK_SHEET_PATH = ROOT / "assets" / "look-directions.png"
@@ -27,6 +27,10 @@ CELL_HEIGHT = 208
 COLUMNS = 8
 ROWS = 11
 ATLAS_SIZE = (CELL_WIDTH * COLUMNS, CELL_HEIGHT * ROWS)
+# The v31 source intentionally draws Batu at one consistent scale in every
+# pose. Keep that source-space scale fixed so raised hands, maps, or horizontal
+# poses cannot make the renderer shrink the character's head and body.
+POSE_SOURCE_SCALE = 0.62
 
 ROW_LABELS = (
     "row 0 · idle",
@@ -267,6 +271,7 @@ def render_pose(
     *,
     max_width: int = 178,
     max_height: int = 198,
+    source_scale: float | None = None,
     scale_delta: float = 0.0,
     angle: float = 0.0,
     dx: int = 0,
@@ -275,7 +280,11 @@ def render_pose(
     foot_y: int = 204,
 ) -> Image.Image:
     subject = ImageOps.mirror(pose) if flip else pose.copy()
-    base_scale = min(max_width / subject.width, max_height / subject.height)
+    base_scale = (
+        source_scale
+        if source_scale is not None
+        else min(max_width / subject.width, max_height / subject.height)
+    )
     scale = max(0.1, base_scale * (1.0 + scale_delta))
     size = (
         max(1, round(subject.width * scale)),
@@ -311,36 +320,54 @@ def make_rows(
     # The western-expedition costume source is a pose sheet. Until a matching
     # animation sheet is available, keep idle and wave rows pixel-stable rather
     # than mixing in the previous costume's hat, sash, or cuffs.
-    idle_frame = render_pose(poses[0])
+    idle_frame = render_pose(poses[0], source_scale=POSE_SOURCE_SCALE)
     idle = [idle_frame.copy() for _ in range(6)]
     rows.append(idle + [transparent.copy() for _ in range(2)])
 
     run_motion = ((-2, 0), (-1, -2), (0, -3), (1, -1), (2, 0), (1, -2), (0, -3), (-1, -1))
-    rows.append([render_pose(poses[1], dx=dx, dy=dy, max_width=184) for dx, dy in run_motion])
-    rows.append([render_pose(poses[1], dx=-dx, dy=dy, flip=True, max_width=184) for dx, dy in run_motion])
+    rows.append([
+        render_pose(poses[1], dx=dx, dy=dy, source_scale=POSE_SOURCE_SCALE)
+        for dx, dy in run_motion
+    ])
+    rows.append([
+        render_pose(poses[1], dx=-dx, dy=dy, flip=True, source_scale=POSE_SOURCE_SCALE)
+        for dx, dy in run_motion
+    ])
 
-    wave_frame = render_pose(poses[3])
+    wave_frame = render_pose(poses[3], source_scale=POSE_SOURCE_SCALE)
     wave = [wave_frame.copy() for _ in range(8)]
     rows.append(wave)
     # Codex v2 reserves row 4 for the pointer-hover "jump" state. Reuse the
     # grounded wave cycle here so hovering never makes Batu jump.
     rows.append([frame.copy() for frame in wave])
 
-    rows.append([render_pose(poses[5]) for _ in range(8)])
+    rows.append([
+        render_pose(poses[5], source_scale=POSE_SOURCE_SCALE)
+        for _ in range(8)
+    ])
 
-    waiting = [render_pose(poses[6]) for _ in range(6)]
+    waiting = [
+        render_pose(poses[6], source_scale=POSE_SOURCE_SCALE)
+        for _ in range(6)
+    ]
     rows.append(waiting + [transparent.copy() for _ in range(2)])
 
-    working = [render_pose(poses[7], max_width=188, max_height=194) for _ in range(6)]
+    working = [
+        render_pose(poses[7], source_scale=POSE_SOURCE_SCALE)
+        for _ in range(6)
+    ]
     rows.append(working + [transparent.copy() for _ in range(2)])
 
-    review = [render_pose(poses[8]) for _ in range(6)]
+    review = [
+        render_pose(poses[8], source_scale=POSE_SOURCE_SCALE)
+        for _ in range(6)
+    ]
     rows.append(review + [transparent.copy() for _ in range(2)])
 
     # Codex gives pointer/caret look frames priority over the active task state.
     # Keep those rows on the map-reading pose so thinking/working never snaps
     # back to the standing idle artwork while gaze tracking is active.
-    look_frame = render_pose(poses[7], max_width=188, max_height=194)
+    look_frame = render_pose(poses[7], source_scale=POSE_SOURCE_SCALE)
     rows.append([look_frame.copy() for _ in range(8)])
     rows.append([look_frame.copy() for _ in range(8)])
 
@@ -439,7 +466,7 @@ def main() -> None:
     build_look_sheet(rows).save(LOOK_SHEET_PATH, "PNG", optimize=True)
     save_idle_gif(rows[0][:6])
 
-    report = {"source": str(SOURCE.relative_to(ROOT)), "sourceSize": list(source.size), "animationMode": "static-western-expedition", "poseCount": len(poses), "atlas": str(ATLAS_PATH.relative_to(ROOT)), "atlasSize": list(atlas.size), "grid": [COLUMNS, ROWS], "cellSize": [CELL_WIDTH, CELL_HEIGHT], "activeFrames": list(ACTIVE_FRAMES)}
+    report = {"source": str(SOURCE.relative_to(ROOT)), "sourceSize": list(source.size), "poseSourceScale": POSE_SOURCE_SCALE, "animationMode": "static-western-expedition", "poseCount": len(poses), "atlas": str(ATLAS_PATH.relative_to(ROOT)), "atlasSize": list(atlas.size), "grid": [COLUMNS, ROWS], "cellSize": [CELL_WIDTH, CELL_HEIGHT], "activeFrames": list(ACTIVE_FRAMES)}
     BUILD_REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Built {ATLAS_PATH.relative_to(ROOT)}: {atlas.size[0]}×{atlas.size[1]}")
     print("Generated contact sheet, look-direction sheet, idle GIF and build report")
